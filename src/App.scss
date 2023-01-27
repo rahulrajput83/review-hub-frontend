@@ -1,0 +1,18 @@
+/* Default Colors */
+$primary: #00337c;
+$bg-primary: rgba(0, 51, 124, 0.1);
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body, input, button {
+  font-family: 'Kumbh Sans', sans-serif;
+}
+
+
+body {
+  background: $bg-primary;
+  box-sizing: border-box;
+}

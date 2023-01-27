@@ -1,0 +1,117 @@
+@use '../../App';
+
+.Home {
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+    align-items: center;
+    box-sizing: border-box;
+    justify-content: space-between;
+    width: 100%;
+
+    .item {
+        display: flex;
+        width: 96%;
+        flex-direction: column;
+        gap: 0.25rem;
+        box-shadow: 0 0 1rem 0.02rem rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+        cursor: pointer;
+        background: #fff;
+        transition: all 0.3s ease-in-out;
+        position: relative;
+        z-index: 3;
+        height: 22rem;
+
+        &:hover {
+            transform: scale(1.05);
+           
+
+            /* The least supported option. */
+            .data {
+                visibility: visible;
+                background: rgba(0, 0, 0, 0.4);
+            }
+        }
+
+        .img {
+            width: 100%;
+            height: 100%;
+
+            img {
+                width: 100%;
+                height: 100%;
+
+            }
+
+        }
+
+        .data {
+            visibility: hidden;
+            position: absolute;
+            font-size: 0.85rem;
+            padding: 0.5rem;
+            box-sizing: border-box;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            box-sizing: border-box;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-end;
+
+            .desc {
+                color: silver;
+                font-size: 0.8rem;
+            }
+            
+            .top {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .title {
+                    font-size: 1.1rem;
+                    font-weight: 500;
+                }
+                
+                .rating {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 0.3rem;
+                    font-size: 0.9rem;
+                    span {
+                        font-size: 1rem;
+                    }
+                }
+            }
+        }
+
+    }
+
+    @media (min-width: 600px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 900px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (min-width: 1200px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (min-width: 1500px) {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    @media (min-width: 1800px) {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+}
