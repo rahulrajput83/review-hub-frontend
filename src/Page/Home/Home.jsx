@@ -25,12 +25,14 @@ function Home() {
                   <BsStarFill />
                 </div>
               </div>
-              <span className='desc'><ResponsiveEllipsis text={e.desc}
+              <span className='desc'>
+                <ResponsiveEllipsis text={e.desc}
                 maxLine='3'
                 ellipsis=' ..'
                 trimRight
                 basedOn='letters'
-              /></span>
+              />
+              </span>
             </div>
           </div>
         )
