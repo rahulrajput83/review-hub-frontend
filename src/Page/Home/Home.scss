@@ -12,7 +12,7 @@
 
     .item {
         display: flex;
-        width: 96%;
+        width: 100%;
         flex-direction: column;
         gap: 0.25rem;
         box-shadow: 0 0 1rem 0.02rem rgba(0, 0, 0, 0.1);
@@ -22,7 +22,7 @@
         transition: all 0.3s ease-in-out;
         position: relative;
         z-index: 3;
-        height: 22rem;
+        
 
         &:hover {
             transform: scale(1.05);
@@ -94,24 +94,32 @@
 
     }
 
-    @media (min-width: 600px) {
+    @media (min-width: 200px) {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    @media (min-width: 900px) {
+    @media (min-width: 400px) {
         grid-template-columns: repeat(3, 1fr);
     }
 
-    @media (min-width: 1200px) {
+    @media (min-width: 600px) {
         grid-template-columns: repeat(4, 1fr);
     }
 
-    @media (min-width: 1500px) {
+    @media (min-width: 900px) {
         grid-template-columns: repeat(5, 1fr);
     }
 
-    @media (min-width: 1800px) {
+    @media (min-width: 1200px) {
         grid-template-columns: repeat(6, 1fr);
+    }
+
+    @media (min-width: 1500px) {
+        grid-template-columns: repeat(7, 1fr);
+    }
+
+    @media (min-width: 1800px) {
+        grid-template-columns: repeat(8, 1fr);
     }
 
 }
