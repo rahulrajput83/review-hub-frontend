@@ -34,6 +34,7 @@
             border: 0.12rem solid App.$primary;
             .icon {
                 color: App.$primary;
+                font-size: 1.1rem;
             }
             .password{
                 cursor: pointer;
@@ -96,7 +97,7 @@
 
     .showErr {
         transition: all 0.5s ease-in-out;
-        height: 2.8rem;
+        height: 3rem;
         font-size: 0.9rem;
     }
 
