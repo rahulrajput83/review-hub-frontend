@@ -13,7 +13,7 @@
 
     .title {
         margin: auto;
-        font-size: 0.9rem;
+        font-size: 1.1rem;
         text-transform: uppercase;
         font-weight: 600;
         color: App.$primary;
@@ -39,6 +39,7 @@
                 cursor: pointer;
             }
             input {
+                font-size: 0.9rem;
                 outline: none;
                 width: 100%;
                 border: none;
@@ -52,6 +53,7 @@
         }
 
         button {
+            font-size: 0.9rem;
             padding: 0.7rem;
             border: 0.14rem solid App.$primary;
             background: App.$primary;
@@ -62,6 +64,9 @@
             &:hover {
                 background: #fff;
                 color: App.$primary;
+            }
+            &:disabled {
+                cursor: not-allowed;
             }
         }
     }
@@ -92,7 +97,7 @@
     .showErr {
         transition: all 0.5s ease-in-out;
         height: 2.8rem;
-
+        font-size: 0.9rem;
     }
 
     @media (min-width: 600px) {

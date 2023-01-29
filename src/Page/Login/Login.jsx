@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Input from './Input'
 import './Login.scss'
 import { MdClose } from 'react-icons/md'
-import {BiUser, BiLock} from 'react-icons/bi'
+import { BiUser, BiLock } from 'react-icons/bi'
 import Loading from '../../Components/Loading/Loading'
 import axios from 'axios'
 
@@ -14,22 +14,43 @@ function Login() {
     const [showErr, setShowErr] = useState(false);
     const [mess, setMess] = useState('');
     const [showLoading, setShowLoading] = useState(false)
+    const [btnDisabled, setBtnDisabled] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(data.email && data.password) {
+        if(data.password.length < 6) {
+            setShowErr(true)
+            setMess('Password must be at least 6 characters.')
+        }
+        else if (data.email && data.password) {
+            setBtnDisabled(true)
             setShowLoading(true);
-            console.log(process.env.REACT_APP_BACKEND)
+            setShowErr(false);
+            setMess('')
             axios.post(`${process.env.REACT_APP_BACKEND}/login`, {
                 email: data.email,
                 password: data.password
             })
-            .then((res) => {
-                console.log(res)
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+                .then((res) => {
+                    if (res.data.message === 'success') {
+                        console.log(res.data.accessToken)
+                        setShowLoading(false)
+                        setBtnDisabled(false)
+                    }
+                })
+                .catch((err) => {
+                    setShowLoading(false)
+                    setBtnDisabled(false)
+                    if (err.response.data.message === 'Wrong Password') {
+                        setShowErr(true);
+                        setMess('Wrong Password')
+                    }
+                    else {
+                        setShowErr(true);
+                        setMess('Please try again...')
+                    }
+
+                })
         }
         else {
             setShowErr(true)
@@ -39,22 +60,22 @@ function Login() {
 
     return (
         <>
-        <div className='Login'>
-            <span className='title'>Login</span>
-            <form onSubmit={handleSubmit}>
-                <Input setData={setData} iconF={BiUser} data={data} name='email' type='email' placeholder='Email Address' />
-                <Input setData={setData} iconF={BiLock} data={data} name='password' type='password' placeholder='Enter Password' />
-                <button type='submit'>Submit</button>
-            </form>
-            <span className={`error ${showErr ? 'showErr' : ''}`}>
-                {showErr ? <>
-                    {mess}
-                    <MdClose onClick={() => setShowErr(false)} className='icon' />
-                
-                </> : ''}
-            </span>
-        </div>
-        <Loading showLoading={showLoading} />
+            <div className='Login'>
+                <span className='title'>Login / Register</span>
+                <form onSubmit={handleSubmit}>
+                    <Input setData={setData} iconF={BiUser} data={data} name='email' type='email' placeholder='Email Address' />
+                    <Input setData={setData} iconF={BiLock} data={data} name='password' type='password' placeholder='Enter Password' />
+                    <button disabled={btnDisabled} type='submit'>Submit</button>
+                </form>
+                <span className={`error ${showErr ? 'showErr' : ''}`}>
+                    {showErr ? <>
+                        {mess}
+                        <MdClose onClick={() => setShowErr(false)} className='icon' />
+
+                    </> : ''}
+                </span>
+            </div>
+            <Loading showLoading={showLoading} />
         </>
     )
 }
