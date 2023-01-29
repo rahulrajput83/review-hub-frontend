@@ -5,12 +5,16 @@ import { MdClose } from 'react-icons/md'
 import { BiUser, BiLock } from 'react-icons/bi'
 import Loading from '../../Components/Loading/Loading'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 function Login() {
+    const navigate = useNavigate();
     const [data, setData] = useState({
         email: '',
         password: ''
     });
+    console.log(useSelector((state) => state))
     const [showErr, setShowErr] = useState(false);
     const [mess, setMess] = useState('');
     const [showLoading, setShowLoading] = useState(false)
@@ -43,6 +47,8 @@ function Login() {
                     if (res.data.message === 'success') {
                         setShowLoading(false)
                         setBtnDisabled(false)
+                        localStorage.setItem('accessToken', res.data.accessToken)
+                        navigate('/')
                     }
                 })
                 .catch((err) => {
