@@ -18,7 +18,15 @@ function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(data.password.length < 6) {
+        if(!data.email) {
+            setShowErr(true)
+            setMess('Please Enter Email Address.')
+        }
+        else if(!data.password) {
+            setShowErr(true)
+            setMess('Please Enter Password.')
+        }
+        else if (data.password.length < 6) {
             setShowErr(true)
             setMess('Password must be at least 6 characters.')
         }
@@ -33,7 +41,6 @@ function Login() {
             })
                 .then((res) => {
                     if (res.data.message === 'success') {
-                        console.log(res.data.accessToken)
                         setShowLoading(false)
                         setBtnDisabled(false)
                     }
@@ -41,9 +48,11 @@ function Login() {
                 .catch((err) => {
                     setShowLoading(false)
                     setBtnDisabled(false)
-                    if (err.response.data.message === 'Wrong Password') {
-                        setShowErr(true);
-                        setMess('Wrong Password')
+                    if (err.response) {
+                        if (err.response.data.message === 'Wrong Password') {
+                            setShowErr(true);
+                            setMess('Wrong Password')
+                        }
                     }
                     else {
                         setShowErr(true);
@@ -52,10 +61,7 @@ function Login() {
 
                 })
         }
-        else {
-            setShowErr(true)
-            setMess('Please fill all required detail.')
-        }
+        
     }
 
     return (

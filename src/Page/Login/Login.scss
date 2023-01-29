@@ -31,9 +31,9 @@
             align-items: center;
             gap: 0.5rem;
             padding: 0.7rem;
-            border: 0.12rem solid App.$primary;
+            border: 0.12rem solid #000;
             .icon {
-                color: App.$primary;
+                color: #000;
                 font-size: 1.1rem;
             }
             .password{
@@ -45,10 +45,10 @@
                 width: 100%;
                 border: none;
                 font-weight: 500;
-                color: App.$primary;
+                color: #000;
 
                 &::placeholder {
-                    color: App.$primary;
+                    color: #000;
                 }
             }
         }
@@ -112,4 +112,12 @@
     @media (min-width: 1000px) {
         width: 40%;
     }
+}
+
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
