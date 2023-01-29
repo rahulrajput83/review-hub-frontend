@@ -4,6 +4,7 @@ import './Login.scss'
 import { MdClose } from 'react-icons/md'
 import {BiUser, BiLock} from 'react-icons/bi'
 import Loading from '../../Components/Loading/Loading'
+import axios from 'axios'
 
 function Login() {
     const [data, setData] = useState({
@@ -17,8 +18,18 @@ function Login() {
     const handleSubmit = (e) => {
         e.preventDefault();
         if(data.email && data.password) {
-            console.log(data)
-            setShowLoading(!showLoading)
+            setShowLoading(true);
+            console.log(process.env.REACT_APP_BACKEND)
+            axios.post(`${process.env.REACT_APP_BACKEND}/login`, {
+                email: data.email,
+                password: data.password
+            })
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err) => {
+                console.log('err', err)
+            })
         }
         else {
             setShowErr(true)
