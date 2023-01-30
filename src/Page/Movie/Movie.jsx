@@ -32,7 +32,7 @@ function Movie() {
             <div className='right'>
               <div className='det'>
                 <span className='title'>{data.title}</span>
-                <span className='year'>({data.year})</span>
+                <span className='year'>{data.year && `(${data.year})`}</span>
               </div>
             </div>
           </> : null}
