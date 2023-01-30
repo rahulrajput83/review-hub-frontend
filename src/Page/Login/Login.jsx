@@ -6,7 +6,6 @@ import { BiUser, BiLock } from 'react-icons/bi'
 import Loading from '../../Components/Loading/Loading'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 
 function Login() {
     const navigate = useNavigate();
