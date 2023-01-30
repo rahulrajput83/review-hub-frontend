@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import Loading from '../../Components/Loading/Loading';
+import Input from './Input';
 import './Movie.scss'
 
 
@@ -36,6 +37,10 @@ function Movie() {
               </div>
               <span className='desc'>{data.desc}</span>
               {data.year && <div className='line'></div>}
+              {data.year && <>
+                <Input placeholder='Share your review' />
+                <button>Publish</button>
+              </>}
             </div>
           </> : null}
       </div>
