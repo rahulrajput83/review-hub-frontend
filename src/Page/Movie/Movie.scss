@@ -49,9 +49,18 @@
 
             }
         }
+        .desc{
+            text-align: justify;
+        }
+        .line {
+            width: 100%;
+            height: 0.01rem;
+            background: black;
+            border-radius: 50%;
+        }
         
         @media (min-width: 768px) {
-            width: 55%;
+            width: 45%;
             align-items: flex-start;
         }
     }
@@ -59,5 +68,6 @@
     @media (min-width: 768px) {
         flex-direction: row;
         gap: 3rem;
+        align-items: flex-start;
     }
 }

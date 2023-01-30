@@ -34,6 +34,8 @@ function Movie() {
                 <span className='title'>{data.title}</span>
                 <span className='year'>{data.year && `(${data.year})`}</span>
               </div>
+              <span className='desc'>{data.desc}</span>
+              {data.year && <div className='line'></div>}
             </div>
           </> : null}
       </div>
