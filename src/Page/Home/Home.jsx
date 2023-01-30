@@ -23,7 +23,7 @@ function Home() {
       }
     }
     getData()
-  })
+  }, [])
 
   return (
     <>
