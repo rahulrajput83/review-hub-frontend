@@ -14,7 +14,7 @@ function Login() {
         email: '',
         password: ''
     });
-    console.log(useSelector((state) => state))
+    
     const [showErr, setShowErr] = useState(false);
     const [mess, setMess] = useState('');
     const [showLoading, setShowLoading] = useState(false)
