@@ -30,7 +30,10 @@ function Movie() {
               <img src={data.cover} alt={data.title} />
             </div>
             <div className='right'>
-              <span className='title'>{data.title}</span>
+              <div className='det'>
+                <span className='title'>{data.title}</span>
+                <span className='year'>({data.year})</span>
+              </div>
             </div>
           </> : null}
       </div>

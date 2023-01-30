@@ -36,10 +36,20 @@
         gap: 1rem;
         flex-direction: column;
         align-items: center;
-        .title {
-            font-size: 1.7rem;
-            font-weight: 500;
+        .det {
+            display: flex;
+            align-items: flex-end;
+            gap: 0.7rem;
+            .title {
+                font-size: 1.3rem;
+                font-weight: 600;
+            }
+            .year {
+                font-size: 0.9rem;
+
+            }
         }
+        
         @media (min-width: 768px) {
             width: 55%;
             align-items: flex-start;
