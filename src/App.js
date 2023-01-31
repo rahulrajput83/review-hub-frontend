@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.scss'
 import Navbar from "./Components/Navbar/Navbar";
@@ -6,6 +8,10 @@ import Login from "./Page/Login/Login";
 import Movie from "./Page/Movie/Movie";
 
 function App() {
+  const accessToken = useSelector((state) => state.accessToken);
+  useEffect(() => {
+    console.log(accessToken)
+  }, [accessToken])
   return (
     <BrowserRouter>
     <Navbar />

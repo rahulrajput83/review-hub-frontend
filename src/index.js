@@ -9,7 +9,19 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './Redux/reducer';
 
-const store = createStore(reducer);
+
+const loadAccessToken = () => {
+  try {
+    const accessToken = localStorage.getItem('accessToken');
+    if(accessToken === null) return {};
+    return {accessToken}
+  }
+  catch {
+    return {}
+  }
+} 
+
+const store = createStore(reducer, loadAccessToken());
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

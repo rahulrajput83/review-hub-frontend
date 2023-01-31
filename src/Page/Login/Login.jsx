@@ -6,9 +6,11 @@ import { BiUser, BiLock } from 'react-icons/bi'
 import Loading from '../../Components/Loading/Loading'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 function Login() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [data, setData] = useState({
         email: '',
         password: ''
@@ -46,7 +48,12 @@ function Login() {
                     if (res.data.message === 'success') {
                         setShowLoading(false)
                         setBtnDisabled(false)
-                        localStorage.setItem('accessToken', res.data.accessToken)
+                        localStorage.setItem('accessToken', res.data.accessToken);
+                        let action = {
+                            type: 'Login',
+                            payload: res.data.accessToken
+                        }
+                        dispatch(action);
                         navigate('/')
                     }
                 })
