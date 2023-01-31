@@ -1,28 +1,16 @@
 export default function reducer(state = {
-    userData: {
-        id: '',
-        Name: '',
-        email: '',
-        careerField: '',
-        mobile: '',
-    }
+    accessToken: ''
 }, action) {
     switch (action.type) {
-        case "ADD_USER":
+        case "Login":
             return {
                 ...state,
-                userData: action.payload
+                accessToken: action.payload
             };
         case "Logout":
             return {
                 ...state,
-                userData: {
-                    id: '',
-                    Name: '',
-                    email: '',
-                    careerField: '',
-                    mobile: '',
-                }
+                accessToken: ''
             };
         default:
             return state;

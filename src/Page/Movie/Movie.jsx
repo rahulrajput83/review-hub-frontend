@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 import Loading from '../../Components/Loading/Loading';
 import Input from './Input';
 import './Movie.scss';
-import axios from 'axios'
+import axios from 'axios';
+import Star from './Star';
 
 
 function Movie() {
@@ -11,7 +12,7 @@ function Movie() {
   const { id } = useParams();
   const [loading, setLoading] = useState(true)
   const [review, setReview] = useState({
-    star: 0,
+    star: 3.5,
     comment: ''
   })
 
@@ -49,6 +50,7 @@ function Movie() {
               <span className='desc'>{data.desc}</span>
               {data.year && <div className='line'></div>}
               {data.year && <>
+                <Star review={review} setReview={setReview} />
                 <Input name='comment' review={review} setReview={setReview} placeholder='Share your review' />
                 <button>Publish</button>
               </>}
