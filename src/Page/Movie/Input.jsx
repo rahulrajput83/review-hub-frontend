@@ -1,8 +1,11 @@
 import React from 'react'
 
-function Input({placeholder}) {
+function Input({ placeholder, name, setReview, review }) {
+  const handleChange = (e) => {
+    setReview({ ...review, [e.target.name]: e.target.value })
+  }
   return (
-    <input type='text' placeholder={placeholder} />
+    <input onChange={handleChange} name={name} type='text' placeholder={placeholder} />
   )
 }
 
