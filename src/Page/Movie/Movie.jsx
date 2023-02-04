@@ -21,6 +21,7 @@ function Movie() {
   const accessToken = useSelector((state) => state.accessToken)
   const [showReview, setShowReview] = useState(true);
   const [totalStar, setTotalStar] = useState(0);
+  const [preview, setPreview] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
@@ -30,8 +31,10 @@ function Movie() {
             "access-token": accessToken
           }
         });
-        setData(response.data.data)
-        setLoading(false)
+        setData(response.data.data);
+        setLoading(false);
+        let reverse = response.data.data.rated.reverse();
+        setPreview(reverse)
         const find = response.data.data.rated.find((e) => e.user._id === response.data.userId);
         if (find) {
           setShowReview(false)
@@ -114,7 +117,7 @@ function Movie() {
                 <Input name='comment' review={review} setReview={setReview} placeholder='Share your review' />
                 <button onClick={handleSubmit}>Publish</button>
               </>}
-              {data.year && data.rated.length > 0 && data.rated.reverse().map((e, i) => {
+              {preview.length > 0 && preview.map((e, i) => {
                 return (
                   <div className='Preview' key={e.user._id}>
                     <ReactStars edit={false}
@@ -125,7 +128,7 @@ function Movie() {
                     fullIcon={<i className="fa fa-star"></i>}
                     activeColor="#00337c"
                     value={e.rating.star} />
-                    
+
                     <span>{e.rating.comment}</span>
                     <span>{e.user.userName}</span>
                   </div>
