@@ -7,6 +7,7 @@ import axios from 'axios';
 import Star from './Star';
 import ReactStars from 'react-rating-stars-component';
 import { useSelector } from 'react-redux';
+import { deleteLS } from '../../Function.js/DeleteLS';
 
 
 function Movie() {
@@ -89,6 +90,7 @@ function Movie() {
       }
       catch (err) {
         if(err.response.data.message === 'Unauthorized!' || err.response.data.message === 'No Token Provided!') {
+          deleteLS();
           navigate('/login')
         }
       }
