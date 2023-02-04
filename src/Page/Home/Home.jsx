@@ -5,6 +5,7 @@ import responsiveHOC from 'react-lines-ellipsis/lib/responsiveHOC'
 import { BsStarFill } from 'react-icons/bs'
 import Loading from '../../Components/Loading/Loading'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const ResponsiveEllipsis = responsiveHOC()(LinesEllipsis)
 
@@ -15,8 +16,8 @@ function Home() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND}/all-movies`).then(res => res.json());
-        setData(response.data)
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND}/all-movies`);
+        setData(response.data.data)
         setLoading(false)
       }
       catch (error) {

@@ -6,6 +6,7 @@ import './Movie.scss';
 import axios from 'axios';
 import Star from './Star';
 import ReactStars from 'react-rating-stars-component';
+import { useSelector } from 'react-redux';
 
 
 function Movie() {
@@ -16,20 +17,26 @@ function Movie() {
     star: 0,
     comment: ''
   })
-  const [star, setStar] = useState(0)
+  const [star, setStar] = useState(0);
+  const accessToken = useSelector((state) => state.accessToken)
+  const [showReview, setShowReview] = useState(true);
+  const [totalStar, setTotalStar] = useState(0);
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND}/movie/${id}`);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND}/movie/${id}`, {
+          headers: {
+            "access-token": accessToken
+          }
+        });
         setData(response.data.data)
         setLoading(false)
-        if (response.data.data.rating) {
-          setStar(response.data.data.rating)
+        const find = response.data.data.rated.find((e) => e.user._id === response.data.userId);
+        if (find) {
+          setShowReview(false)
         }
-        else {
-          setStar(0.1)
-        }
+        setTotalStar(response.data.data.rating)
 
       }
       catch (error) {
@@ -37,7 +44,44 @@ function Movie() {
       }
     }
     getData()
-  }, [id]);
+  }, [id, accessToken]);
+
+  useEffect(() => {
+    if (data.year) {
+      let calculateStar = totalStar / data.rated.length;
+      if (calculateStar) {
+
+        setStar(calculateStar)
+      }
+      else {
+        setStar(0.1)
+      }
+    }
+  }, [totalStar, data])
+
+
+  const handleSubmit = async () => {
+    if (review.star && review.comment) {
+      try {
+        const response = await axios.put(`${process.env.REACT_APP_BACKEND}/rate`,
+          {
+            rated: review,
+            movieId: id,
+            rating: totalStar + review.star
+          },
+          {
+            headers: {
+              "access-token": accessToken
+            }
+          });
+        console.log(response.data)
+
+      }
+      catch (error) {
+        console.log(error)
+      }
+    }
+  }
 
   return (
     <>
@@ -65,11 +109,28 @@ function Movie() {
                 </div> : null}
               <span className='desc'>{data.desc}</span>
               {data.year && <div className='line'></div>}
-              {data.year && <>
-                <Star edit={true} value={review.star} />
+              {showReview && data.year && <>
+                <Star edit={true} value={review.star} review={review} setReview={setReview} />
                 <Input name='comment' review={review} setReview={setReview} placeholder='Share your review' />
-                <button>Publish</button>
+                <button onClick={handleSubmit}>Publish</button>
               </>}
+              {data.year && data.rated.length > 0 && data.rated.reverse().map((e, i) => {
+                return (
+                  <div className='Preview' key={e.user._id}>
+                    <ReactStars edit={false}
+                    size={18}
+                    isHalf={true}
+                    emptyIcon={<i className="far fa-star"></i>}
+                    halfIcon={<i className="fa fa-star-half-alt"></i>}
+                    fullIcon={<i className="fa fa-star"></i>}
+                    activeColor="#00337c"
+                    value={e.rating.star} />
+                    
+                    <span>{e.rating.comment}</span>
+                    <span>{e.user.userName}</span>
+                  </div>
+                )
+              })}
             </div>
           </> : null}
       </div>
