@@ -25,8 +25,8 @@ function Movie() {
   const [showReview, setShowReview] = useState(true);
   const [totalStar, setTotalStar] = useState(0);
   const [preview, setPreview] = useState([]);
-  const [showErr, setShowErr] = useState(true);
-  const [mess, setMess] = useState('Please enter review comment');
+  const [showErr, setShowErr] = useState(false);
+  const [mess, setMess] = useState('');
 
   const fetchData = useCallback(() => {
     const getData = async () => {
@@ -82,6 +82,8 @@ function Movie() {
       setMess('Please provide review comment.')
     }
     else if (review.star && review.comment) {
+      setShowErr(false)
+      setMess('')
       try {
         const response = await axios.put(`${process.env.REACT_APP_BACKEND}/rate`,
           {
