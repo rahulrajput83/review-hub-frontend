@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import React, { useCallback, useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom';
 import Loading from '../../Components/Loading/Loading';
 import Input from './Input';
 import './Movie.scss';
@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 
 
 function Movie() {
+  let navigate = useNavigate();
   const [data, setData] = useState({});
   const { id } = useParams();
   const [loading, setLoading] = useState(true)
@@ -23,7 +24,7 @@ function Movie() {
   const [totalStar, setTotalStar] = useState(0);
   const [preview, setPreview] = useState([]);
 
-  useEffect(() => {
+  const fetchData = useCallback(() => {
     const getData = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_BACKEND}/movie/${id}`, {
@@ -47,7 +48,11 @@ function Movie() {
       }
     }
     getData()
-  }, [id, accessToken]);
+  }, [id, accessToken])
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   useEffect(() => {
     if (data.year) {
@@ -77,11 +82,15 @@ function Movie() {
               "access-token": accessToken
             }
           });
-        console.log(response.data)
+        if(response.data.message === 'Success') {
+          fetchData();
+        }
 
       }
-      catch (error) {
-        console.log(error)
+      catch (err) {
+        if(err.response.data.message === 'Unauthorized!' || err.response.data.message === 'No Token Provided!') {
+          navigate('/login')
+        }
       }
     }
   }
