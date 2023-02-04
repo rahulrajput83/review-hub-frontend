@@ -8,6 +8,7 @@ import Star from './Star';
 import ReactStars from 'react-rating-stars-component';
 import { useSelector } from 'react-redux';
 import { deleteLS } from '../../Function.js/DeleteLS';
+import { MdClose } from 'react-icons/md';
 
 
 function Movie() {
@@ -24,6 +25,8 @@ function Movie() {
   const [showReview, setShowReview] = useState(true);
   const [totalStar, setTotalStar] = useState(0);
   const [preview, setPreview] = useState([]);
+  const [showErr, setShowErr] = useState(true);
+  const [mess, setMess] = useState('Please enter review comment');
 
   const fetchData = useCallback(() => {
     const getData = async () => {
@@ -70,7 +73,15 @@ function Movie() {
 
 
   const handleSubmit = async () => {
-    if (review.star && review.comment) {
+    if (!review.star) {
+      setShowErr(true)
+      setMess('Please provide review star.')
+    }
+    else if (!review.comment) {
+      setShowErr(true)
+      setMess('Please provide review comment.')
+    }
+    else if (review.star && review.comment) {
       try {
         const response = await axios.put(`${process.env.REACT_APP_BACKEND}/rate`,
           {
@@ -83,13 +94,13 @@ function Movie() {
               "access-token": accessToken
             }
           });
-        if(response.data.message === 'Success') {
+        if (response.data.message === 'Success') {
           fetchData();
         }
 
       }
       catch (err) {
-        if(err.response.data.message === 'Unauthorized!' || err.response.data.message === 'No Token Provided!') {
+        if (err.response.data.message === 'Unauthorized!' || err.response.data.message === 'No Token Provided!') {
           deleteLS();
           navigate('/login')
         }
@@ -128,17 +139,26 @@ function Movie() {
                 <Input name='comment' review={review} setReview={setReview} placeholder='Share your review' />
                 <button onClick={handleSubmit}>Publish</button>
               </>}
+
+              <span className={`error ${showErr ? 'showErr' : ''}`}>
+                {showErr ? <>
+                  {mess}
+                  <MdClose onClick={() => setShowErr(false)} className='icon' />
+
+                </> : ''}
+              </span>
+
               {preview.length > 0 && preview.map((e, i) => {
                 return (
                   <div className='Preview' key={e.user._id}>
                     <ReactStars edit={false}
-                    size={18}
-                    isHalf={true}
-                    emptyIcon={<i className="far fa-star"></i>}
-                    halfIcon={<i className="fa fa-star-half-alt"></i>}
-                    fullIcon={<i className="fa fa-star"></i>}
-                    activeColor="#00337c"
-                    value={e.rating.star} />
+                      size={18}
+                      isHalf={true}
+                      emptyIcon={<i className="far fa-star"></i>}
+                      halfIcon={<i className="fa fa-star-half-alt"></i>}
+                      fullIcon={<i className="fa fa-star"></i>}
+                      activeColor="#00337c"
+                      value={e.rating.star} />
 
                     <span>{e.rating.comment}</span>
                     <span>{e.user.userName}</span>

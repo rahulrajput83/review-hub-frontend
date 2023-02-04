@@ -106,6 +106,36 @@
             align-items: flex-start;
         }
 
+        .error {
+            margin-top: 0.5rem;
+            transition: all 0.5s ease-in-out;
+            width: 0;
+            height: 0;
+            background: App.$primary;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            position: relative;
+    
+            .icon {
+                position: absolute;
+                right: 1%;
+                font-size: 1.2rem;
+                top: 10%;
+                color: #fff !important;
+                cursor: pointer;
+            }
+        }
+    
+        .showErr {
+            transition: all 0.5s ease-in-out;
+            height: 3rem;
+            font-size: 0.9rem;
+        }
+
         .Preview {
             margin-top: 0.95rem;
             width: 100%;
