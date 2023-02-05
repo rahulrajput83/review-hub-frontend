@@ -41,6 +41,9 @@
                 margin: 0 0.4rem;
             }
         }
+        .file {
+            display: none;
+        }
         .cover {
             position: absolute;
             background: #fff;
@@ -72,6 +75,55 @@
             &:hover {
                 background: #fff;
                 color: App.$primary;
+            }
+        }
+
+        .error {
+            margin-top: 0.5rem;
+            transition: all 0.5s ease-in-out;
+            width: 0;
+            height: 0;
+            background: App.$primary;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            position: relative;
+    
+            .icon {
+                position: absolute;
+                right: 1%;
+                font-size: 1.2rem;
+                top: 10%;
+                color: #fff !important;
+                cursor: pointer;
+            }
+        }
+
+        .showErr {
+            transition: all 0.5s ease-in-out;
+            height: 3rem;
+            font-size: 0.9rem;
+        }
+
+        .Preview {
+            margin-top: 0.95rem;
+            width: 100%;
+            box-sizing: border-box;
+            background: #fff;
+            padding: 0.2rem 0.6rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+            border-radius: 0.25rem;
+            box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
+            span {
+                font-size: 0.9rem;
+                &:last-child {
+                    font-weight: 600;
+                }
             }
         }
     }
