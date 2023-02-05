@@ -13,7 +13,7 @@ function Navbar() {
             <span>Review</span>
             <span>Hub</span>
         </Link>
-        {!accessToken ? <Link className='login' to='/login'>Login</Link> : null /* <Link className='login' to='/add-movie'>Add Movie</Link>  */}
+        {!accessToken ? <Link className='login' to='/login'>Login</Link> : <Link className='login' to='/add-movie'>Add Movie</Link>}
     </div>
   )
 }

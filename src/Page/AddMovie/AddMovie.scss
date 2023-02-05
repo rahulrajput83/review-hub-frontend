@@ -1,0 +1,29 @@
+.AddMovie {
+    padding: 1rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 98%;
+    background: #fff;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
+
+    span {
+        &:first-child {
+            margin: auto;
+            font-weight: 500;
+        }
+    }
+
+    @media (min-width: 600px) {
+        width: 80%;
+    }
+
+    @media (min-width: 800px) {
+        width: 60%;
+    }
+
+    @media (min-width: 1000px) {
+        width: 40%;
+    }
+}
