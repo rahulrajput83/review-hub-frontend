@@ -44,7 +44,7 @@ function AddMovie() {
         }
         else if (!uploadingImage && data.cover && data.title && data.year && data.desc) {
             setShowErr(true)
-                    setMess('Adding, please wait.')
+            setMess('Adding, please wait.')
             try {
                 const response = await axios.post(`${process.env.REACT_APP_BACKEND}/upload`,
                     {
@@ -62,6 +62,13 @@ function AddMovie() {
                 if (response.data.message === 'Successfully Added...') {
                     setShowErr(true)
                     setMess('Successfully Added')
+                    setData({
+                        cover: '',
+                        title: '',
+                        year: '2023',
+                        desc: '',
+                        rating: 0
+                    })
                 }
 
             }

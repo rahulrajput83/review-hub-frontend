@@ -71,7 +71,7 @@ function Input({ placeholder, name, setShowErr, setMess, data, setData, value, s
 
     return <div className='input'>
         {placeholder === 'Release Year' ?
-            <input type="number" onChange={handleChange} value={value} name={name} min="1900" max="2099" step="1" />
+            <input type="number" onChange={handleChange} value={value} name={name} min="1900" max="2025" step="1" />
             :
             placeholder === 'Image URL'
                 ?

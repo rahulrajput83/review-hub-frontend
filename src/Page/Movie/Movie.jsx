@@ -58,7 +58,7 @@ function Movie() {
     fetchData();
   }, [fetchData]);
 
-  useEffect(() => {
+  const calculate = useCallback(() => {
     if (data.year) {
       let calculateStar = totalStar / data.rated.length;
       if (calculateStar) {
@@ -70,6 +70,10 @@ function Movie() {
       }
     }
   }, [totalStar, data])
+
+  useEffect(() => {
+    calculate()
+  }, [calculate])
 
 
   const handleSubmit = async () => {
@@ -98,6 +102,7 @@ function Movie() {
           });
         if (response.data.message === 'Success') {
           fetchData();
+          window.location.reload();
         }
 
       }
