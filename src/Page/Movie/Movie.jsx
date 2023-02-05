@@ -28,6 +28,21 @@ function Movie() {
   const [showErr, setShowErr] = useState(false);
   const [mess, setMess] = useState('');
 
+
+  const calculate = useCallback(() => {
+    if (data.year) {
+      let calculateStar = totalStar / data.rated.length;
+      if (calculateStar) {
+
+        setStar(calculateStar)
+      }
+      else {
+        setStar(0.1)
+      }
+    }
+  }, [totalStar, data])
+  
+
   const fetchData = useCallback(() => {
     const getData = async () => {
       try {
@@ -45,31 +60,18 @@ function Movie() {
           setShowReview(false)
         }
         setTotalStar(response.data.data.rating)
-
+        calculate();
       }
       catch (error) {
         console.log('err')
       }
     }
     getData()
-  }, [id, accessToken])
+  }, [id, accessToken, calculate])
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
-
-  const calculate = useCallback(() => {
-    if (data.year) {
-      let calculateStar = totalStar / data.rated.length;
-      if (calculateStar) {
-
-        setStar(calculateStar)
-      }
-      else {
-        setStar(0.1)
-      }
-    }
-  }, [totalStar, data])
 
   useEffect(() => {
     calculate()
@@ -102,7 +104,7 @@ function Movie() {
           });
         if (response.data.message === 'Success') {
           fetchData();
-          window.location.reload();
+          calculate();
         }
 
       }

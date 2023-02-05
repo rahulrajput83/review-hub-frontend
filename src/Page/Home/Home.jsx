@@ -41,7 +41,8 @@ function Home() {
                 <div className='top'>
                   <span className='title'>{e.title}</span>
                   <div className='rating'>
-                    <span>4.5</span>
+                    
+                    <span>{e.rated.length > 0 ? e.rating / e.rated.length: 0}</span>
                     <BsStarFill />
                   </div>
                 </div>
