@@ -1,5 +1,5 @@
 /* Delete Local Storage */
 
-export const deleteLS = () => {
-    localStorage.removeItem('accessToken')
+export const DeleteLS = () => {
+    localStorage.removeItem('accessToken');
 }

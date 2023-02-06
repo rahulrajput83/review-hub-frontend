@@ -1,13 +1,14 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { MdClose } from 'react-icons/md';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { deleteLS } from '../../Function.js/DeleteLS';
+import { DeleteLS } from '../../Function.js/DeleteLS';
 import './AddMovie.scss'
 import Input from './Input';
 
 function AddMovie() {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const accessToken = useSelector((state) => state.accessToken)
     const [showErr, setShowErr] = useState(false);
@@ -74,7 +75,11 @@ function AddMovie() {
             }
             catch (err) {
                 if (err.response.data.message === 'Unauthorized!' || err.response.data.message === 'No Token Provided!') {
-                    deleteLS();
+                    DeleteLS();
+                    let action = {
+                        type: 'Logout'
+                    }
+                    dispatch(action);
                     navigate('/login')
                 }
                 setShowErr(true)

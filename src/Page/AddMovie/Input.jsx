@@ -1,11 +1,12 @@
 import axios from 'axios'
 import React, { useRef, useState } from 'react'
 import { FaAngleDown } from 'react-icons/fa'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { deleteLS } from '../../Function.js/DeleteLS'
+import { DeleteLS } from '../../Function.js/DeleteLS'
 
 function Input({ placeholder, name, setShowErr, setMess, data, setData, value, setUploadingImage }) {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const accessToken = useSelector((state) => state.accessToken)
     const [show, setShow] = useState(false)
@@ -57,7 +58,11 @@ function Input({ placeholder, name, setShowErr, setMess, data, setData, value, s
                     })
                     .catch((err) => {
                         if (err.response.data.message === 'Unauthorized!' || err.response.data.message === 'No Token Provided!') {
-                            deleteLS();
+                            DeleteLS();
+                            let action = {
+                                type: 'Logout'
+                            }
+                            dispatch(action);
                             navigate('/login')
                           }
                         setShowErr(true)

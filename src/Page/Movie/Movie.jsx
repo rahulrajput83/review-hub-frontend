@@ -6,12 +6,13 @@ import './Movie.scss';
 import axios from 'axios';
 import Star from './Star';
 import ReactStars from 'react-rating-stars-component';
-import { useSelector } from 'react-redux';
-import { deleteLS } from '../../Function.js/DeleteLS';
+import { useDispatch, useSelector } from 'react-redux';
+import { DeleteLS } from '../../Function.js/DeleteLS';
 import { MdClose } from 'react-icons/md';
 
 
 function Movie() {
+  const dispatch = useDispatch();
   let navigate = useNavigate();
   const [data, setData] = useState({});
   const { id } = useParams();
@@ -41,7 +42,7 @@ function Movie() {
       }
     }
   }, [totalStar, data])
-  
+
 
   const fetchData = useCallback(() => {
     const getData = async () => {
@@ -110,7 +111,11 @@ function Movie() {
       }
       catch (err) {
         if (err.response.data.message === 'Unauthorized!' || err.response.data.message === 'No Token Provided!') {
-          deleteLS();
+          DeleteLS();
+          let action = {
+            type: 'Logout'
+          }
+          dispatch(action);
           navigate('/login')
         }
       }
