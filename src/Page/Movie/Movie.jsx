@@ -111,11 +111,7 @@ function Movie() {
       }
       catch (err) {
         if (err.response.data.message === 'Unauthorized!' || err.response.data.message === 'No Token Provided!') {
-          DeleteLS();
-          let action = {
-            type: 'Logout'
-          }
-          dispatch(action);
+          dispatch(DeleteLS());
           navigate('/login')
         }
       }
