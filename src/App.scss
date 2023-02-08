@@ -16,3 +16,16 @@ body {
   background: $bg-primary;
   box-sizing: border-box;
 }
+
+::-webkit-scrollbar {
+  width: 0.4em;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-track {
+  background: $bg-primary;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $primary;
+}
